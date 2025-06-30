@@ -1,32 +1,4 @@
-body 
-{
-  display: flex;
-}
-aside#menu {
-  width: 200px;
-  background: #fff;
-  padding: 1em;
-  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-}
-aside#menu ul {
-  list-style: none;
-  padding: 0;
-}
-aside#menu li {
-  margin: 0.5em 0;
-}
-aside#menu a {
-  text-decoration: none;
-  color: #333;
-}
-#figurine-container {
-  flex: 1;
-  padding: 1em;
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 1em;
-}
-{
+body {
   font-family: Arial, sans-serif;
   margin: 0;
   background: #f2f2f2;
