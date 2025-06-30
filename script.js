@@ -30,17 +30,16 @@ const figurine = [
 ];
 
 const container = document.getElementById("figurine-container");
-const menuList = document.getElementById("menu-list");
 
-figurine.forEach((f, index) => {
-  // Genera la card
+figurine.forEach(f => {
   const card = document.createElement("div");
-  ...
-  card.id = `card-${index}`; // aggiungo ID univoco
+  card.className = "card";
+  card.innerHTML = `
+    <img src="${f.immagine}" alt="figurina di ${f.nome}" />
+    <h2>${f.nome}</h2>
+    <p><strong>Anno:</strong> ${f.anno}</p>
+    <p><strong>Collezione:</strong> ${f.collezione}</p>
+    <p><strong>Caratteristiche:</strong> ${f.caratteristiche}</p>
+  `;
   container.appendChild(card);
-
-  // Crea voce nel menu
-  const menuItem = document.createElement("li");
-  menuItem.innerHTML = `<a href="#card-${index}">${f.nome}</a>`;
-  menuList.appendChild(menuItem);
 });
