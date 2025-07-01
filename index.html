@@ -1,25 +1,108 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>PassioneFigu</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      display: flex;
+      height: 100vh;
+    }
+
+    .sidebar {
+      width: 200px;
+      background-color: #1f1f1f;
+      color: white;
+      padding: 20px;
+      box-sizing: border-box;
+      overflow-y: auto;
+    }
+
+    .sidebar h2 {
+      margin-top: 0;
+      font-size: 18px;
+      border-bottom: 1px solid #444;
+      padding-bottom: 10px;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      cursor: pointer;
+      padding: 8px 0;
+      border-bottom: 1px solid #444;
+    }
+
+    .sidebar li:hover {
+      background-color: #333;
+    }
+
+    .main {
+      flex-grow: 1;
+      background-color: #f0f0f0;
+      padding: 20px;
+      overflow-y: auto;
+      box-sizing: border-box;
+    }
+
+    .header {
+      text-align: center;
+      font-size: 32px;
+      margin-bottom: 20px;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+
+    .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 15px;
+      justify-content: center;
+    }
+
+    .gallery img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.2);
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <aside class="sidebar">
-      <ul id="playerList">
-        <li onclick="loadPlayer('totti')">Francesco Totti</li>
-        <li onclick="loadPlayer('delpiero')">Alessandro Del Piero</li>
-        <!-- Aggiungi altri giocatori -->
-      </ul>
-    </aside>
-    <main class="main-content">
-      <h1 id="playerName">Seleziona un giocatore</h1>
-      <div id="figurineContainer" class="figurine-grid"></div>
-    </main>
+  <div class="sidebar">
+    <h2>Giocatori</h2>
+    <ul id="playerList">
+      <li onclick="loadPlayer('Totti')">Totti</li>
+      <li onclick="loadPlayer('DelPiero')">Del Piero</li>
+      <li onclick="loadPlayer('Pirlo')">Pirlo</li>
+    </ul>
   </div>
 
-  <script src="script.js"></script>
+  <div class="main">
+    <div class="header">PassioneFigu</div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+
+  <script>
+    function loadPlayer(player) {
+      const folder = `images/${player}`;
+      const imageCount = 10; // puoi aumentarlo se carichi più immagini
+      const gallery = document.getElementById("gallery");
+      gallery.innerHTML = "";
+
+      for (let i = 1; i <= imageCount; i++) {
+        const img = document.createElement("img");
+        img.src = `${folder}/${i}.jpg`;
+        img.onerror = () => img.remove(); // se l'immagine non esiste, non la mostra
+        gallery.appendChild(img);
+      }
+    }
+  </script>
 </body>
 </html>
