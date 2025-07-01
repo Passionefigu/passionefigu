@@ -1,20 +1,24 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>PassioneFigu</title>
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>PassioneFigu</h1>
-    <p>Archivio delle figurine dei calciatori</p>
-  </header>
-
-  <main id="figurine-container">
-    <!-- Figurine verranno caricate dinamicamente -->
-  </main>
+  <div class="container">
+    <aside class="sidebar">
+      <ul id="playerList">
+        <li onclick="loadPlayer('totti')">Francesco Totti</li>
+        <li onclick="loadPlayer('delpiero')">Alessandro Del Piero</li>
+        <!-- Aggiungi altri giocatori -->
+      </ul>
+    </aside>
+    <main class="main-content">
+      <h1 id="playerName">Seleziona un giocatore</h1>
+      <div id="figurineContainer" class="figurine-grid"></div>
+    </main>
+  </div>
 
   <script src="script.js"></script>
 </body>
