@@ -49,14 +49,26 @@
       padding: 20px;
       overflow-y: auto;
       box-sizing: border-box;
+      position: relative;
     }
 
-    .header {
-      text-align: center;
-      font-size: 32px;
+    .title-bar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
       margin-bottom: 20px;
+    }
+
+    .player-name {
+      font-size: 28px;
       font-weight: bold;
       color: #2c3e50;
+    }
+
+    .logo {
+      font-size: 20px;
+      font-weight: bold;
+      color: #888;
     }
 
     .gallery {
@@ -81,35 +93,47 @@
   </div>
 
   <div class="main">
-    <div class="header">PassioneFigu</div>
+    <div class="title-bar">
+      <div class="player-name" id="playerName">Seleziona un giocatore</div>
+      <div class="logo">PassioneFigu</div>
+    </div>
     <div class="gallery" id="gallery"></div>
   </div>
 
   <script>
-    const players = ["Del Piero", "Pirlo", "Totti", "Baggio", "Zidane", "Maldini"];
+    // Nomi visibili => nomi delle cartelle
+    const players = [
+      { name: "Francesco Totti", folder: "Totti" },
+      { name: "Alessandro Del Piero", folder: "DelPiero" },
+      { name: "Andrea Pirlo", folder: "Pirlo" },
+      { name: "Paolo Maldini", folder: "Maldini" },
+      { name: "Roberto Baggio", folder: "Baggio" },
+      { name: "Zinedine Zidane", folder: "Zidane" }
+    ];
 
     // Ordina alfabeticamente
-    players.sort((a, b) => a.localeCompare(b));
+    players.sort((a, b) => a.name.localeCompare(b.name));
 
     const list = document.getElementById("playerList");
+    const playerName = document.getElementById("playerName");
 
     players.forEach(player => {
       const li = document.createElement("li");
-      li.textContent = player;
-      li.onclick = () => loadPlayer(player.replaceAll(" ", ""));
+      li.textContent = player.name;
+      li.onclick = () => loadPlayer(player.name, player.folder);
       list.appendChild(li);
     });
 
-    function loadPlayer(playerFolderName) {
-      const folder = `images/${playerFolderName}`;
-      const imageCount = 10; // numero massimo di immagini
+    function loadPlayer(name, folder) {
+      playerName.textContent = name;
       const gallery = document.getElementById("gallery");
       gallery.innerHTML = "";
 
+      const imageCount = 10;
       for (let i = 1; i <= imageCount; i++) {
         const img = document.createElement("img");
-        img.src = `${folder}/${i}.jpg`;
-        img.onerror = () => img.remove(); // se l'immagine non esiste, non la mostra
+        img.src = `images/${folder}/${i}.jpg`;
+        img.onerror = () => img.remove();
         gallery.appendChild(img);
       }
     }
