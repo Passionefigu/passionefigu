@@ -101,26 +101,26 @@
   </div>
 
   <script>
-    // Nomi visibili => nomi delle cartelle
+    // Dati: nome completo + cartella
     const players = [
-      { name: "Francesco Totti", folder: "Totti" },
-      { name: "Alessandro Del Piero", folder: "DelPiero" },
-      { name: "Andrea Pirlo", folder: "Pirlo" },
-      { name: "Paolo Maldini", folder: "Maldini" },
-      { name: "Roberto Baggio", folder: "Baggio" },
-      { name: "Zinedine Zidane", folder: "Zidane" }
+      { fullName: "Francesco Totti", display: "Totti Francesco", folder: "Totti" },
+      { fullName: "Alessandro Del Piero", display: "Del Piero Alessandro", folder: "DelPiero" },
+      { fullName: "Andrea Pirlo", display: "Pirlo Andrea", folder: "Pirlo" },
+      { fullName: "Paolo Maldini", display: "Maldini Paolo", folder: "Maldini" },
+      { fullName: "Roberto Baggio", display: "Baggio Roberto", folder: "Baggio" },
+      { fullName: "Zinedine Zidane", display: "Zidane Zinedine", folder: "Zidane" }
     ];
 
-    // Ordina alfabeticamente
-    players.sort((a, b) => a.name.localeCompare(b.name));
+    // Ordina per display (Cognome Nome)
+    players.sort((a, b) => a.display.localeCompare(b.display));
 
     const list = document.getElementById("playerList");
     const playerName = document.getElementById("playerName");
 
     players.forEach(player => {
       const li = document.createElement("li");
-      li.textContent = player.name;
-      li.onclick = () => loadPlayer(player.name, player.folder);
+      li.textContent = player.display;
+      li.onclick = () => loadPlayer(player.fullName, player.folder);
       list.appendChild(li);
     });
 
