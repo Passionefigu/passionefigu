@@ -1,5 +1,5 @@
 /public
-  /images
+  /figurine
     /Totti
       figurina1.jpg
       figurina2.jpg
