@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-  <meta charset="UTF-8">
-  <title>PassioneFigu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Passione Figu</title>
   <style>
     body {
       margin: 0;
@@ -12,56 +13,69 @@
     }
 
     .sidebar {
-      width: 200px;
-      background-color: #f1c40f;
+      width: 220px;
+      background-color: #ffeb3b;
+      color: black;
       padding: 20px;
-      box-sizing: border-box;
+      overflow-y: auto;
     }
 
     .sidebar h2 {
-      color: #000;
-      font-size: 18px;
       margin-top: 0;
     }
 
-    .player {
+    .sidebar ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .sidebar li {
+      padding: 8px;
       cursor: pointer;
-      margin: 10px 0;
-      color: #000;
     }
 
-    .content {
-      flex-grow: 1;
-      padding: 20px;
-      text-align: center;
-      position: relative;
+    .sidebar li:hover {
+      background-color: #fdd835;
     }
 
-    .content h1 {
-      font-size: 32px;
-      margin-bottom: 20px;
-    }
-
-    .figurine {
+    .main {
+      flex: 1;
       display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 20px;
+      background-color: #f4f4f4;
     }
 
-    .figurine img {
-      width: 150px;
+    .title {
+      align-self: flex-end;
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .figurina {
+      text-align: center;
+    }
+
+    .figurina img {
+      width: 250px;
       height: auto;
-      border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+      border: 2px solid #ccc;
+      border-radius: 10px;
     }
 
-    .logo {
-      position: absolute;
-      top: 20px;
-      right: 30px;
-      font-size: 22px;
-      color: #999;
+    .dettagli {
+      margin-top: 15px;
+      font-size: 16px;
+      text-align: left;
+      background-color: #fff;
+      padding: 10px;
+      border-radius: 8px;
+      width: 250px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
@@ -69,29 +83,75 @@
 
   <div class="sidebar">
     <h2>Giocatori</h2>
-    <div class="player" onclick="mostraFigurine('Totti', 'Francesco Totti', '1totti.jpg')">Totti Francesco</div>
-    <div class="player" onclick="mostraFigurine('DelPiero', 'Alessandro Del Piero', '1delpiero.jpg')">Del Piero Alessandro</div>
-    <div class="player" onclick="mostraFigurine('Baggio', 'Roberto Baggio', '1baggio.jpg')">Baggio Roberto</div>
-    <div class="player" onclick="mostraFigurine('Maldini', 'Paolo Maldini', '1maldini.jpg')">Maldini Paolo</div>
-    <div class="player" onclick="mostraFigurine('Buffon', 'Gianluigi Buffon', '1buffon.jpg')">Buffon Gianluigi</div>
+    <ul>
+      <li onclick="mostraFigurina('Totti')">Totti Francesco</li>
+      <li onclick="mostraFigurina('DelPiero')">Del Piero Alessandro</li>
+      <li onclick="mostraFigurina('Maldini')">Maldini Paolo</li>
+      <li onclick="mostraFigurina('Baggio')">Baggio Roberto</li>
+    </ul>
   </div>
 
-  <div class="content">
-    <div class="logo">PassioneFigu</div>
-    <h1 id="player-name">Benvenuto!</h1>
-    <div class="figurine" id="figurine-container"></div>
+  <div class="main">
+    <div class="title" id="titoloPagina">Passione Figu</div>
+
+    <div class="figurina" id="contenutoFigurina">
+      <!-- Contenuto dinamico -->
+    </div>
   </div>
 
   <script>
-    function mostraFigurine(cartella, nomeCompleto, immagine) {
-      document.getElementById('player-name').textContent = nomeCompleto;
-      const container = document.getElementById('figurine-container');
-      container.innerHTML = '';
+    function mostraFigurina(giocatore) {
+      let contenuto = "";
+      let titolo = "";
 
-      const img = document.createElement('img');
-      img.src = `figurine/${cartella}/${immagine}`;
-      img.alt = nomeCompleto;
-      container.appendChild(img);
+      if (giocatore === "Totti") {
+        titolo = "Francesco Totti";
+        contenuto = `
+          <img src="figurine/1totti.jpg" alt="Francesco Totti" />
+          <div class="dettagli">
+            <strong>Collezione:</strong> Panini Calciatori 1994-95<br>
+            <strong>Squadra:</strong> Roma<br>
+            <strong>Numero Figurina:</strong> 32<br>
+            <strong>Info:</strong> Prima figurina Panini di Totti
+          </div>
+        `;
+      } else if (giocatore === "DelPiero") {
+        titolo = "Alessandro Del Piero";
+        contenuto = `
+          <img src="figurine/delpiero.jpg" alt="Del Piero" />
+          <div class="dettagli">
+            <strong>Collezione:</strong> Panini Calciatori 1995-96<br>
+            <strong>Squadra:</strong> Juventus<br>
+            <strong>Numero Figurina:</strong> 44<br>
+            <strong>Info:</strong> Bandiera bianconera
+          </div>
+        `;
+      } else if (giocatore === "Maldini") {
+        titolo = "Paolo Maldini";
+        contenuto = `
+          <img src="figurine/maldini.jpg" alt="Maldini" />
+          <div class="dettagli">
+            <strong>Collezione:</strong> Panini Calciatori 1990-91<br>
+            <strong>Squadra:</strong> Milan<br>
+            <strong>Numero Figurina:</strong> 12<br>
+            <strong>Info:</strong> Capitano storico del Milan
+          </div>
+        `;
+      } else if (giocatore === "Baggio") {
+        titolo = "Roberto Baggio";
+        contenuto = `
+          <img src="figurine/baggio.jpg" alt="Baggio" />
+          <div class="dettagli">
+            <strong>Collezione:</strong> Panini Calciatori 1993-94<br>
+            <strong>Squadra:</strong> Juventus<br>
+            <strong>Numero Figurina:</strong> 9<br>
+            <strong>Info:</strong> Pallone d'Oro 1993
+          </div>
+        `;
+      }
+
+      document.getElementById("titoloPagina").innerText = titolo;
+      document.getElementById("contenutoFigurina").innerHTML = contenuto;
     }
   </script>
 
