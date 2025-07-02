@@ -1,5 +1,16 @@
 [
-  "images/Totti/1Totti.jpg",
-  "figurina2.jpg",
-  "figurina3.jpg"
+  {
+    "file": "1totti.jpg",
+    "collezione": "Panini Calciatori 1994-95",
+    "squadra": "Roma",
+    "numero": "32",
+    "info": "Prima figurina Panini di Totti"
+  },
+  {
+    "file": "2totti.jpg",
+    "collezione": "Panini Calciatori 1995-96",
+    "squadra": "Roma",
+    "numero": "45",
+    "info": "Seconda stagione in Serie A"
+  }
 ]
