@@ -2,7 +2,6 @@
 <html lang="it">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PassioneFigu</title>
   <style>
     body {
@@ -10,103 +9,91 @@
       font-family: Arial, sans-serif;
       display: flex;
       height: 100vh;
-      background-color: #f5f5f5;
     }
 
     .sidebar {
-      width: 220px;
-      background-color: #f0e442; /* Giallo */
-      color: black;
+      width: 200px;
+      background-color: #f1c40f;
       padding: 20px;
       box-sizing: border-box;
-      overflow-y: auto;
     }
 
-    .menu {
-      list-style-type: none;
-      padding: 0;
+    .sidebar h2 {
+      color: #000;
+      font-size: 18px;
+      margin-top: 0;
     }
 
-    .menu li {
-      padding: 10px;
+    .player {
       cursor: pointer;
-      border-bottom: 1px solid #ccc;
-    }
-
-    .menu li:hover {
-      background-color: #ddd;
+      margin: 10px 0;
+      color: #000;
     }
 
     .content {
-      flex: 1;
+      flex-grow: 1;
       padding: 20px;
-      position: relative;
       text-align: center;
+      position: relative;
     }
 
-    .titolo {
+    .content h1 {
+      font-size: 32px;
+      margin-bottom: 20px;
+    }
+
+    .figurine {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .figurine img {
+      width: 150px;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    }
+
+    .logo {
       position: absolute;
       top: 20px;
-      right: 20px;
-      font-size: 32px;
-      font-weight: bold;
-      color: #333;
-    }
-
-    .giocatore {
-      margin-top: 80px;
-      font-size: 28px;
-      font-weight: bold;
-    }
-
-    .figurina {
-      margin-top: 20px;
-      max-width: 300px;
+      right: 30px;
+      font-size: 22px;
+      color: #999;
     }
   </style>
 </head>
 <body>
+
   <div class="sidebar">
-    <ul class="menu" id="menuGiocatori">
-      <li onclick="mostraFigurine('Totti', 'Francesco')">Totti Francesco</li>
-      <li onclick="mostraFigurine('Del Piero', 'Alessandro')">Del Piero Alessandro</li>
-      <li onclick="mostraFigurine('Baggio', 'Roberto')">Baggio Roberto</li>
-      <li onclick="mostraFigurine('Maldini', 'Paolo')">Maldini Paolo</li>
-      <li onclick="mostraFigurine('Buffon', 'Gianluigi')">Buffon Gianluigi</li>
-    </ul>
+    <h2>Giocatori</h2>
+    <div class="player" onclick="mostraFigurine('Totti', 'Francesco Totti', '1totti.jpg')">Totti Francesco</div>
+    <div class="player" onclick="mostraFigurine('DelPiero', 'Alessandro Del Piero', '1delpiero.jpg')">Del Piero Alessandro</div>
+    <div class="player" onclick="mostraFigurine('Baggio', 'Roberto Baggio', '1baggio.jpg')">Baggio Roberto</div>
+    <div class="player" onclick="mostraFigurine('Maldini', 'Paolo Maldini', '1maldini.jpg')">Maldini Paolo</div>
+    <div class="player" onclick="mostraFigurine('Buffon', 'Gianluigi Buffon', '1buffon.jpg')">Buffon Gianluigi</div>
   </div>
 
   <div class="content">
-    <div class="titolo">PassioneFigu</div>
-    <div id="nomeGiocatore" class="giocatore">Seleziona un giocatore</div>
-    <img id="fotoGiocatore" class="figurina" src="" alt="" style="display:none;">
+    <div class="logo">PassioneFigu</div>
+    <h1 id="player-name">Benvenuto!</h1>
+    <div class="figurine" id="figurine-container"></div>
   </div>
 
   <script>
-    function mostraFigurine(cognome, nome) {
-      const nomeCompleto = `${nome} ${cognome}`;
-      document.getElementById('nomeGiocatore').textContent = nomeCompleto;
+    function mostraFigurine(cartella, nomeCompleto, immagine) {
+      document.getElementById('player-name').textContent = nomeCompleto;
+      const container = document.getElementById('figurine-container');
+      container.innerHTML = '';
 
-      const imgPath = `figurine/1${cognome.toLowerCase()}.jpg`;
-      const imgElement = document.getElementById('fotoGiocatore');
-      imgElement.src = imgPath;
-      imgElement.style.display = 'block';
+      const img = document.createElement('img');
+      img.src = `figurine/${cartella}/${immagine}`;
+      img.alt = nomeCompleto;
+      container.appendChild(img);
     }
-
-    // Ordina alfabeticamente il menu
-    window.addEventListener('DOMContentLoaded', () => {
-      const menu = document.getElementById('menuGiocatori');
-      const items = Array.from(menu.getElementsByTagName('li'));
-
-      items.sort((a, b) => {
-        const nameA = a.textContent.toUpperCase();
-        const nameB = b.textContent.toUpperCase();
-        return nameA.localeCompare(nameB);
-      });
-
-      menu.innerHTML = '';
-      items.forEach(item => menu.appendChild(item));
-    });
   </script>
+
 </body>
 </html>
