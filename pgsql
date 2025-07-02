@@ -1,7 +1,7 @@
 /public
-  /figurine
+  /images
     /Totti
-      Totti1.jpg
+      figurina1.jpg
       figurina2.jpg
     /DelPiero
       figurina1.jpg
