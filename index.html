@@ -3,157 +3,102 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Passione Figu</title>
+  <title>PassioneFigu</title>
   <style>
     body {
+      display: flex;
       margin: 0;
       font-family: Arial, sans-serif;
-      display: flex;
-      height: 100vh;
     }
-
     .sidebar {
       width: 220px;
-      background-color: #ffeb3b;
+      background-color: #f7dc6f;
       color: black;
-      padding: 20px;
+      height: 100vh;
       overflow-y: auto;
+      padding: 20px;
+      box-sizing: border-box;
     }
-
     .sidebar h2 {
-      margin-top: 0;
+      font-size: 20px;
+      margin-bottom: 10px;
     }
-
     .sidebar ul {
-      list-style-type: none;
+      list-style: none;
       padding: 0;
     }
-
     .sidebar li {
-      padding: 8px;
       cursor: pointer;
+      margin-bottom: 10px;
     }
-
-    .sidebar li:hover {
-      background-color: #fdd835;
-    }
-
     .main {
       flex: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: flex-start;
       padding: 20px;
-      background-color: #f4f4f4;
     }
-
     .title {
-      align-self: flex-end;
-      font-size: 24px;
+      font-size: 32px;
       font-weight: bold;
       margin-bottom: 20px;
-      color: #333;
     }
-
     .figurina {
       text-align: center;
+      margin-bottom: 20px;
     }
-
     .figurina img {
-      width: 250px;
+      max-width: 300px;
       height: auto;
-      border: 2px solid #ccc;
-      border-radius: 10px;
+      display: block;
+      margin: 0 auto;
     }
-
     .dettagli {
-      margin-top: 15px;
+      text-align: center;
       font-size: 16px;
-      text-align: left;
-      background-color: #fff;
-      padding: 10px;
-      border-radius: 8px;
-      width: 250px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
   </style>
 </head>
 <body>
-
   <div class="sidebar">
     <h2>Giocatori</h2>
     <ul>
-      <li onclick="mostraFigurina('Totti')">Totti Francesco</li>
-      <li onclick="mostraFigurina('DelPiero')">Del Piero Alessandro</li>
-      <li onclick="mostraFigurina('Maldini')">Maldini Paolo</li>
-      <li onclick="mostraFigurina('Baggio')">Baggio Roberto</li>
+      <li onclick="caricaFigurine('Totti', 'Totti Francesco')">Totti Francesco</li>
+      <!-- Aggiungi altri giocatori così -->
     </ul>
   </div>
 
   <div class="main">
-    <div class="title" id="titoloPagina">Passione Figu</div>
-
-    <div class="figurina" id="contenutoFigurina">
-      <!-- Figurina e dettagli -->
-    </div>
+    <div class="title" id="titolo">PassioneFigu</div>
+    <div id="figurineContainer"></div>
   </div>
 
   <script>
-    function mostraFigurina(giocatore) {
-      let contenuto = "";
-      let titolo = "";
+    function caricaFigurine(cartella, nomeCompleto) {
+      document.getElementById("titolo").textContent = nomeCompleto;
+      fetch(`dati/${cartella.toLowerCase()}.json`)
+        .then(response => response.json())
+        .then(data => {
+          const container = document.getElementById("figurineContainer");
+          container.innerHTML = "";
 
-      if (giocatore === "Totti") {
-        titolo = "Francesco Totti";
-        contenuto = `
-          <img src="figurine/Totti/1totti.jpg" alt="Francesco Totti" />
-          <div class="dettagli">
-            <strong>Collezione:</strong> Panini Calciatori 1994-95<br>
-            <strong>Squadra:</strong> Roma<br>
-            <strong>Numero Figurina:</strong> 32<br>
-            <strong>Info:</strong> Prima figurina Panini di Totti
-          </div>
-        `;
-      } else if (giocatore === "DelPiero") {
-        titolo = "Alessandro Del Piero";
-        contenuto = `
-          <img src="figurine/DelPiero/1delpiero.jpg" alt="Del Piero" />
-          <div class="dettagli">
-            <strong>Collezione:</strong> Panini Calciatori 1995-96<br>
-            <strong>Squadra:</strong> Juventus<br>
-            <strong>Numero Figurina:</strong> 44<br>
-            <strong>Info:</strong> Bandiera bianconera
-          </div>
-        `;
-      } else if (giocatore === "Maldini") {
-        titolo = "Paolo Maldini";
-        contenuto = `
-          <img src="figurine/Maldini/1maldini.jpg" alt="Maldini" />
-          <div class="dettagli">
-            <strong>Collezione:</strong> Panini Calciatori 1990-91<br>
-            <strong>Squadra:</strong> Milan<br>
-            <strong>Numero Figurina:</strong> 12<br>
-            <strong>Info:</strong> Capitano storico del Milan
-          </div>
-        `;
-      } else if (giocatore === "Baggio") {
-        titolo = "Roberto Baggio";
-        contenuto = `
-          <img src="figurine/Baggio/1baggio.jpg" alt="Baggio" />
-          <div class="dettagli">
-            <strong>Collezione:</strong> Panini Calciatori 1993-94<br>
-            <strong>Squadra:</strong> Juventus<br>
-            <strong>Numero Figurina:</strong> 9<br>
-            <strong>Info:</strong> Pallone d'Oro 1993
-          </div>
-        `;
-      }
-
-      document.getElementById("titoloPagina").innerText = titolo;
-      document.getElementById("contenutoFigurina").innerHTML = contenuto;
+          data.forEach(figurina => {
+            const div = document.createElement("div");
+            div.className = "figurina";
+            div.innerHTML = `
+              <img src="figurine/${cartella}/${figurina.file}" alt="${figurina.file}">
+              <div class="dettagli">
+                <strong>Collezione:</strong> ${figurina.collezione}<br>
+                <strong>Squadra:</strong> ${figurina.squadra}<br>
+                <strong>Numero Figurina:</strong> ${figurina.numero}<br>
+                <strong>Info:</strong> ${figurina.info}
+              </div>
+            `;
+            container.appendChild(div);
+          });
+        })
+        .catch(err => {
+          console.error("Errore nel caricamento:", err);
+          document.getElementById("figurineContainer").innerHTML = "<p>Errore nel caricamento delle figurine.</p>";
+        });
     }
   </script>
-
 </body>
 </html>
